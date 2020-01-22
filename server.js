@@ -2,6 +2,7 @@ const express = require("express");
 const server = express();
 
 //Middleware
+const apiRouter = require("./api/api-router");
 
 
 //Apply Middleware
@@ -14,20 +15,8 @@ server.get("/", (req, res, next) => {
    });
 });
 
-//GET	   /api/users
-server.get("/", (req, res, next) => {
-   next();
-});
-
-//POST	/api/register
-server.post("/api/register", (req, res, next) => {
-   next();
-});
-
-//POST	/api/login
-server.post("/api/login", (req, res, next) => {
-   next();
-});
+//API endpoints
+server.use("/api", apiRouter);
 
 //404 Page not found
 server.use((req, res, next) => {
