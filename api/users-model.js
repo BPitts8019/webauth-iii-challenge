@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const db = require("../data/db-obj");
 const users_db = db.bind(db, "users");
 
@@ -7,7 +8,8 @@ const findAll = () => {
 };
 const findBy = filter => {
    return users_db()
-      .select(filter);
+      .select()
+      .where(filter);
 };
 const findById = id => {
    return findBy({id})
@@ -15,6 +17,7 @@ const findById = id => {
 };
 const add = async newUser => {
    try {
+      newUser.password = bcrypt.hashSync(newUser.password, 14);
       const [id] = await users_db().insert(newUser);
       return findById(id);
    } catch (error) {

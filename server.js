@@ -1,9 +1,6 @@
 const express = require("express");
 const server = express();
-
-//Middleware
 const apiRouter = require("./api/api-router");
-
 
 //Apply Middleware
 server.use(express.json());
