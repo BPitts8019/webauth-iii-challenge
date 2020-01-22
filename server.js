@@ -7,6 +7,28 @@ const server = express();
 //Apply Middleware
 server.use(express.json());
 
+//GET    /
+server.get("/", (req, res, next) => {
+   res.json({
+      message: "Welcome to Web Auth 3 Challenge API"
+   });
+});
+
+//GET	   /api/users
+server.get("/", (req, res, next) => {
+   next();
+});
+
+//POST	/api/register
+server.post("/api/register", (req, res, next) => {
+   next();
+});
+
+//POST	/api/login
+server.post("/api/login", (req, res, next) => {
+   next();
+});
+
 //404 Page not found
 server.use((req, res, next) => {
    res.status(404).json({
