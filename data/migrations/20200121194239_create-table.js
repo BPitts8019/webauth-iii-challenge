@@ -5,6 +5,7 @@ exports.up = async function (knex) {
       table.increments("id");
       table.string("username", 128).notNullable().unique();
       table.string("password", 128).notNullable();
+      table.string("department").notNullable();
    });
 };
 
