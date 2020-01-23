@@ -1,7 +1,7 @@
 const router = require("express").Router();
 // const auth_db = require("./auth-model");
-const users_db = require("./users-model");
-const getUserCreds = require("./creds-input");
+const users_db = require("../users/users-model");
+const getUserCreds = require("../middleware/creds-input");
 
 //GET	   /api/users
 router.get("/users", (req, res, next) => {
