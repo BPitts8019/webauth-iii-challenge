@@ -3,13 +3,6 @@ const router = require("express").Router();
 const users_db = require("../users/users-model");
 const getUserCreds = require("../middleware/creds-input");
 
-//GET	   /api/users
-router.get("/users", (req, res, next) => {
-   res.json({
-      message: `${req.method}  /api${req.url}`
-   });
-});
-
 //POST	/api/register
 router.post("/register", getUserCreds(), async (req, res, next) => {
    console.log(`${req.method}  /api${req.url}`);
@@ -30,9 +23,6 @@ router.post("/login", (req, res, next) => {
    });
 });
 
-module.exports = router;
-
-
 //helper functions
 function stripPassword (user) {
    return {
@@ -40,3 +30,5 @@ function stripPassword (user) {
       username: user.username
    }
 }
+
+module.exports = router;
