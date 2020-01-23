@@ -15,10 +15,10 @@ const findById = id => {
    return findBy({id})
       .first();
 };
-const add = async newUser => {
+const add = async userData => {
    try {
-      newUser.password = bcrypt.hashSync(newUser.password, 14);
-      const [id] = await users_db().insert(newUser);
+      userData.password = bcrypt.hashSync(userData.password, 14);
+      const [id] = await users_db().insert(userData);
       return findById(id);
    } catch (error) {
       return Promise.reject(error);

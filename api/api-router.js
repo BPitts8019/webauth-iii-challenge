@@ -1,15 +1,21 @@
 const router = require("express").Router();
 const users_db = require("./users-model");
 const getUserCreds = require("../middleware/creds-input");
-const restricted = require("");
+// const restricted = require("");
 
 //POST	/api/register
 router.post("/register", getUserCreds, async (req, res, next) => {
-   console.log(`${req.method}  /api${req.url}`);
+   if (!req.body.department) {
+      return res.status(400).json({message: "Must have a username, password, and department."});
+   }
+
+   const  userData = {
+      ...req.credentials,
+      department: req.body.department
+   };
 
    try {
-      //Username and Password are in req.credentials
-      const user = await users_db.add(req.credentials);
+      const user = await users_db.add(userData);
       res.status(201).json(stripPassword(user));
    } catch (error) {
       next(error);
@@ -24,18 +30,15 @@ router.post("/login", getUserCreds, (req, res, next) => {
 });
 
 //GET	   /api/users
-router.get("/", restricted, (req, res, next) => {
+router.get("/", (req, res, next) => {
    res.json({
       message: `${req.method}  /api${req.url}`
    });
 });
 
 //helper functions
-function stripPassword (user) {
-   return {
-      id: user.id,
-      username: user.username
-   }
+function stripPassword ({password, ...user}) {
+   return user;
 }
 
 module.exports = router;
