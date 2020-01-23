@@ -1,10 +1,10 @@
 const router = require("express").Router();
-// const auth_db = require("./auth-model");
-const users_db = require("../users/users-model");
+const users_db = require("./users-model");
 const getUserCreds = require("../middleware/creds-input");
+const restricted = require("");
 
 //POST	/api/register
-router.post("/register", getUserCreds(), async (req, res, next) => {
+router.post("/register", getUserCreds, async (req, res, next) => {
    console.log(`${req.method}  /api${req.url}`);
 
    try {
@@ -17,7 +17,14 @@ router.post("/register", getUserCreds(), async (req, res, next) => {
 });
 
 //POST	/api/login
-router.post("/login", (req, res, next) => {
+router.post("/login", getUserCreds, (req, res, next) => {
+   res.json({
+      message: `${req.method}  /api${req.url}`
+   });
+});
+
+//GET	   /api/users
+router.get("/", restricted, (req, res, next) => {
    res.json({
       message: `${req.method}  /api${req.url}`
    });

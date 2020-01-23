@@ -1,7 +1,6 @@
 const express = require("express");
 const server = express();
-const authRouter = require("./auth/auth-router");
-const usersRouter = require("./users/users-router");
+const authRouter = require("./api/api-router");
 
 //Apply Middleware
 server.use(express.json());
@@ -14,8 +13,7 @@ server.get("/", (req, res, next) => {
 });
 
 //API endpoints
-server.use("/api/auth", authRouter);
-server.use("/api/users", usersRouter);
+server.use("/api", authRouter);
 
 //404 Page not found
 server.use((req, res, next) => {
