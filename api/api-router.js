@@ -27,7 +27,7 @@ router.post("/register", getUserCreds, async (req, res, next) => {
 //POST	/api/login
 router.post("/login", getUserCreds, async (req, res, next) => {
    const {username, password} = req.credentials;
-   const INVALID = "Invalid username or password";
+   const INVALID = "You... shall not... PASS!!";
    
    try {
       const user = await users_db.findBy({username}).first();
